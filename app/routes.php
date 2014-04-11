@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+Route::get('/', function() {
+	return Redirect::to('/projects');
 });
+Route::resource('projects', 'ProjectController');
+Route::resource('projects.tasks', 'TaskController');
