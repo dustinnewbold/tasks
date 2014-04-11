@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function() {
-	return Redirect::to('/projects');
+	return View::make('global.home');
 });
 Route::resource('projects', 'ProjectController');
 Route::resource('projects.tasks', 'TaskController');
