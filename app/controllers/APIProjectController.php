@@ -9,7 +9,15 @@ class APIProjectController extends \BaseController {
 	 */
 	public function index()
 	{
-		return Project::where('user_id', '=', Auth::user()->id)->get();
+		$projects = Project::where('user_id', '=', Auth::user()->id)->get()->toArray();
+
+		foreach ( $projects as &$project ) {
+			$project['tasks'] = array(
+				'completed' => Task::where('project_id', '=', $project['id'])->where('completed', '=', 1)->count(),
+				'incomplete' => Task::where('project_id', '=', $project['id'])->where('completed', '=', 0)->count()
+			);
+		}
+		return $projects;
 	}
 
 

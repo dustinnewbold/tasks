@@ -9,7 +9,26 @@ class APITaskController extends \BaseController {
 	 */
 	public function index($project_id)
 	{
-		return Task::where('project_id', '=', $project_id)->get();
+		// Get parent tasks
+		$tasks = Task::with('project', 'comments', 'comments.user')->where('project_id', '=', $project_id)->whereNull('task_id')->get();
+
+		foreach ( $tasks as &$task ) {
+			$task['subtasks'] = $this->get_sub_tasks($task['id']);
+			unset($task['task_id']);
+		}
+		return $tasks;
+	}
+
+	// Get all sub tasks
+	private function get_sub_tasks($id) {
+		$subtasks = Task::with('comments', 'comments.user')->where('task_id', '=', $id)->get()->toArray();
+
+		foreach ( $subtasks as &$subtask ) {
+			$subtask['subtasks'] = $this->get_sub_tasks($subtask['id']);
+			unset($subtask['task_id']);
+		}
+
+		return $subtasks;
 	}
 
 
@@ -43,7 +62,7 @@ class APITaskController extends \BaseController {
 	 */
 	public function show($project_id, $id)
 	{
-		return Task::where('project_id', '=', $project_id)->where('id', '=', $id)->get();
+		return Task::with('project', 'parent_task', 'comments', 'comments.user')->where('project_id', '=', $project_id)->where('id', '=', $id)->get();
 	}
 
 
