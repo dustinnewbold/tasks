@@ -13,7 +13,13 @@
 
 App::before(function($request)
 {
-	//
+	// Auth::loginUsingId(1);
+
+	$user = new User;
+	$user->id = 1;
+	$user->full_name = 'Dustin Newbold';
+	$user->email_address = 'dustin.newbold@gmail.com';
+	Auth::login($user);
 });
 
 
