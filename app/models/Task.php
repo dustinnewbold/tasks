@@ -1,7 +1,7 @@
 <?php
 
 class Task extends Eloquent {
-	protected $hidden = array('project_id');
+	// protected $hidden = array('project_id');
 
 	public function tasks() {
 		return $this->hasMany('Task', 'task_id');

@@ -1,0 +1,17 @@
+header[role=banner] {
+	height: 40px;
+	padding: 10px;
+	background: #09f;
+	color: #fff;
+	font-size: 18px;
+}
+
+header[role=banner] h1 {
+	font-size: 36px;
+	float: left;
+}
+
+header[role=banner] > nav {
+	float: right;
+	line-height: 40px;
+}

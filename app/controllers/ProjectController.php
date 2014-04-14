@@ -9,8 +9,7 @@ class ProjectController extends \BaseController {
 	 */
 	public function index()
 	{
-		$projects = Project::all();
-		return View::make('projects.list', compact('projects'));
+		return View::make('projects.list');
 	}
 
 
@@ -21,7 +20,7 @@ class ProjectController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		
 	}
 
 

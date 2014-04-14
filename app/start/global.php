@@ -79,3 +79,7 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+
+App::bind('Cook\Repositories\Interfaces\TaskRepositoryInterface', 'Cook\Repositories\EloquentTaskRepository');
+App::bind('Cook\Repositories\Interfaces\ProjectRepositoryInterface', 'Cook\Repositories\EloquentProjectRepository');

@@ -15,9 +15,14 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function index()
 	{
-		return View::make('hello');
+		if ( Auth::guest() ) {
+			return View::make('global.home');
+		}
+
+		$projects = Project::all();
+		return View::make('projects.list', compact('projects'));
 	}
 
 }

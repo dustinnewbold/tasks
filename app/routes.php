@@ -2,11 +2,11 @@
 
 Route::group(array('prefix' => 'api'), function() {
 	Route::resource('projects', 'APIProjectController');
-	Route::resource('projects.tasks', 'APITaskController');
+	Route::resource('tasks', 'APITaskController');
 });
 
-Route::get('/', function() {
-	return View::make('global.home');
-});
+Route::get('/', 'HomeController@index');
 Route::resource('projects', 'ProjectController');
 Route::resource('projects.tasks', 'TaskController');
+
+View::share('projects', Project::all());

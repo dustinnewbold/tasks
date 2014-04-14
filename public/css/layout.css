@@ -1,0 +1,53 @@
+html,
+body,
+.container {
+	height: 100%;
+}
+
+.container {
+	display: table;
+	width: 100%;
+}
+
+.sections {
+	display: table-row;
+}
+
+.sections > section {
+	display: table-cell;
+}
+
+.projects {
+	width: 200px;
+	border-right: 1px solid #333;
+	height: 100%;
+	padding: 10px 0;
+	background: #fff;
+	box-sizing: border-box;
+}
+
+.project-new {
+	margin: 0 10px;
+}
+
+.list a {
+	padding: 10px;
+	display: block;
+	text-decoration: none;
+	color: #333;
+}
+
+.list a:hover {
+	background: #eee;
+}
+
+.tasks {
+	padding: 10px;
+	display: relative;
+}
+
+.info {
+	width: 400px;
+	border-left: 1px solid #333;
+	padding: 10px;
+}

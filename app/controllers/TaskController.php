@@ -1,15 +1,28 @@
 <?php
 
+use Cook\Repositories\Interfaces\TaskRepositoryInterface;
+use Cook\Repositories\Interfaces\ProjectRepositoryInterface;
+
 class TaskController extends \BaseController {
+
+	private $projects;
+	private $tasks;
+
+	public function __construct(ProjectRepositoryInterface $projects, TaskRepositoryInterface $tasks) {
+		$this->projects = $projects;
+		$this->tasks = $tasks;
+	}
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index($project)
+	public function index($project_id)
 	{
-		return Task::where('project_id', '=', $project)->get();
+		$project = $this->projects->find($project_id);
+		$tasks = $this->tasks->all($project_id);
+		return View::make('projects.tasks', compact('project', 'tasks'));
 	}
 
 

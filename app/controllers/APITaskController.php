@@ -1,22 +1,27 @@
 <?php
 
+use Cook\Repositories\Interfaces\TaskRepositoryInterface;
+
 class APITaskController extends \BaseController {
+
+	private $tasks;
+
+	public function __construct(TaskRepositoryInterface $tasks) {
+		$this->tasks = $tasks;
+	}
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index($project_id)
+	public function index()
 	{
-		// Get parent tasks
-		$tasks = Task::with('project', 'comments', 'comments.user')->where('project_id', '=', $project_id)->whereNull('task_id')->get();
-
-		foreach ( $tasks as &$task ) {
-			$task['subtasks'] = $this->get_sub_tasks($task['id']);
-			unset($task['task_id']);
+		if ( Input::get('flat') === '' ) {
+			return $this->tasks->tasks_flat();
 		}
-		return $tasks;
+
+		return $this->tasks->all();
 	}
 
 	// Get all sub tasks

@@ -1,6 +1,14 @@
 <?php
 
+use Cook\Repositories\Interfaces\TaskRepositoryInterface;
+
 class APIProjectController extends \BaseController {
+
+	private $tasks;
+
+	public function __construct(TaskRepositoryInterface $tasks) {
+		$this->tasks = $tasks;
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -9,15 +17,21 @@ class APIProjectController extends \BaseController {
 	 */
 	public function index()
 	{
-		$projects = Project::where('user_id', '=', Auth::user()->id)->get()->toArray();
+		// $projects = Project::where('user_id', '=', Auth::user()->id)->get()->toArray();
 
-		foreach ( $projects as &$project ) {
-			$project['tasks'] = array(
-				'completed' => Task::where('project_id', '=', $project['id'])->where('completed', '=', 1)->count(),
-				'incomplete' => Task::where('project_id', '=', $project['id'])->where('completed', '=', 0)->count()
-			);
+		// foreach ( $projects as &$project ) {
+		// 	$project['tasks'] = array(
+		// 		'completed' => Task::where('project_id', '=', $project['id'])->where('completed', '=', 1)->count(),
+		// 		'incomplete' => Task::where('project_id', '=', $project['id'])->where('completed', '=', 0)->count()
+		// 	);
+		// }
+		// return $projects;
+
+		if ( Input::get('flat') === '' ) {
+			return $this->tasks->tasks_flat();
 		}
-		return $projects;
+
+		return $this->tasks->all();
 	}
 
 
